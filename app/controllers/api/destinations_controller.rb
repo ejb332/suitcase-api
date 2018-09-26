@@ -6,11 +6,12 @@ class Api::DestinationsController < ApplicationController
 
   def create
     @destination = Destination.new(
-      location: params[:location],
+      city: params[:city],
+      country: params[:country],
       start_date: params[:start_date],
       end_date: params[:end_date]
     )
-    destination.save
+    @destination.save
     render 'show.json.jbuilder'
   end
 
@@ -21,7 +22,8 @@ class Api::DestinationsController < ApplicationController
 
   def update
     @destination = Destination.find_by(id: params[:id])
-    @destination.location = params[:location] || @destination.location
+    @destination.city = params[:city] || @destination.city
+    @destination.country = params[:country] || @destination.country
     @destination.start_date = params[:start_date] || @destination.start_date
     @destination.end_date = params[:end_date] || @destination.end_date
     @destination.save
