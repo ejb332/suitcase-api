@@ -4,11 +4,13 @@ Rails.application.routes.draw do
     get '/destinations' => 'destinations#index'
     post '/destinations' => 'destinations#create'
     get '/destinations/:id' => 'destinations#show'
-    patch '/destinations/:id' => 'destinatons#update'
+    patch '/destinations/:id' => 'destinations#update'
     delete '/destinations/:id' => 'destinations#destroy'
 
     get '/users/:id' => 'users#show'
     post '/users' => 'users#create'
+    post '/sessions' => 'sessions#create'
+
     post '/sessions' => 'sessions#create'
   end
 end

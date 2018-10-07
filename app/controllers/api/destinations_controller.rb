@@ -1,6 +1,15 @@
 class Api::DestinationsController < ApplicationController
   def index
     @destinations = Destination.all
+
+    if params[:search]
+      @destinations = @destinations.where(
+        "city ILIKE ? OR country ILIKE ?",
+        "%#{params[:search]}%",
+        "%#{params[:search]}%"
+      )
+    end
+
     render 'index.json.jbuilder'
   end
 
@@ -9,10 +18,14 @@ class Api::DestinationsController < ApplicationController
       city: params[:city],
       country: params[:country],
       start_date: params[:start_date],
-      end_date: params[:end_date]
+      end_date: params[:end_date],
+      user_id: current_user.id
     )
-    @destination.save
-    render 'show.json.jbuilder'
+    if @destination.save
+      render 'show.json.jbuilder'
+    else
+      render json: {errors: @destination.errors.full_message}, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -26,8 +39,11 @@ class Api::DestinationsController < ApplicationController
     @destination.country = params[:country] || @destination.country
     @destination.start_date = params[:start_date] || @destination.start_date
     @destination.end_date = params[:end_date] || @destination.end_date
-    @destination.save
-    render 'show.json.jbuilder'
+    if @destination.save
+      render 'show.json.jbuilder'
+    else
+      render json: { errors: @destination.errors.full_message }, status: :unprocessable_entity
+    end
   end
 
   def destroy

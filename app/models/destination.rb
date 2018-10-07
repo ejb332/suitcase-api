@@ -1,4 +1,7 @@
 class Destination < ApplicationRecord
+  belongs_to :user
+  validates :city, :country, :start_date, :end_date, presence: true
+
   def us_friendly_start_date
     start_date.strftime("%A, %b %d %Y")
   end
