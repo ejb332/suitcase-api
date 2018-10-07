@@ -1,4 +1,6 @@
 class Api::DestinationsController < ApplicationController
+  before_action :authenticate_user
+
   def index
     @destinations = Destination.all
 
