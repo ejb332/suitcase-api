@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     patch '/destinations/:id' => 'destinations#update'
     delete '/destinations/:id' => 'destinations#destroy'
 
+    post '/attire' => 'attires#create'
+
     get '/users/:id' => 'users#show'
     post '/users' => 'users#create'
     post '/sessions' => 'sessions#create'

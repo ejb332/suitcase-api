@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password]) # if user & password match up
       jwt = JWT.encode(
       {
-        user: user.id, # encode all data with this id
+        user_id: user.id, # encode all data with this id
         exp: 24.hours.from_now.to_i # set expiration for 24 hours
       },
       Rails.application.secrets.fetch(:secret_key_base), # the secret key
