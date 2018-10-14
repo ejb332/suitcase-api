@@ -1,8 +1,8 @@
 class Api::DestinationsController < ApplicationController
-  # before_action :authenticate_user
+  before_action :authenticate_user
 
   def index
-    @destinations = current_user.destinations
+    @destinations = Destination.all
 
     if params[:search]
       @destinations = @destinations.where(
