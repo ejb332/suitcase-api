@@ -1,4 +1,11 @@
 class Api::AttiresController < ApplicationController
+  before_action :authenticate_user
+
+  def index
+    @attire = Attire.all
+    render 'index.json.jbuilder'
+  end
+
   def create
     @attire = Attire.new(
       item_name: params[:item_name],

@@ -1,5 +1,7 @@
 class Destination < ApplicationRecord
   belongs_to :user
+  has_many :attire_destinations
+  has_many :attires, through: :attire_destinations
   validates :city, :country, :start_date, :end_date, presence: true
 
   def us_friendly_start_date

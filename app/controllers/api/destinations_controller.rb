@@ -1,8 +1,11 @@
 class Api::DestinationsController < ApplicationController
+  # before any of these are called, check authenticate_user which we built
+  # in application controller
   before_action :authenticate_user
 
   def index
-    @destinations = Destination.all
+    # only show destinations for logged in user
+    @destinations = current_user.destinations
 
     if params[:search]
       @destinations = @destinations.where(
@@ -11,7 +14,6 @@ class Api::DestinationsController < ApplicationController
         "%#{params[:search]}%"
       )
     end
-
     render 'index.json.jbuilder'
   end
 
